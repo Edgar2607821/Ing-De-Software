@@ -9,6 +9,7 @@ class Desechos(models.Model):
     def __str__(self):
         return f"{self.clasificacion}"
 
+
 class Cliente(models.Model):
     SEXO_CHOICES = [
         ('Femenino', 'Femenino'),
@@ -66,3 +67,7 @@ class Venta(models.Model):
 
     def __str__(self):
         return f"{self.Tipo} {self.Marca}"
+
+
+#tipo 
+#dispositivo

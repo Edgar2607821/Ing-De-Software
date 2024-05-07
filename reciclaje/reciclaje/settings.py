@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'reciclaje.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'reciclaje2',
+        'NAME': 'reciclaje',
         'USER': 'postgres',
         'PASSWORD': 'Edgar821',
         'HOST': 'localhost',
@@ -122,8 +122,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
 
+STATIC_URL = 'reciclaje/pag/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'reciclaje/pag/static/'),
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 

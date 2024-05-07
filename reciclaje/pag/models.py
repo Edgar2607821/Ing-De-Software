@@ -1,13 +1,42 @@
 from django.db import models
 
 # Create your models here.
-class Desechos(models.Model):
-    
-    clasificacion = models.CharField(max_length=30)
-    preciokg = models.FloatField()
-    
+class Dispositivo(models.Model):
+    nombre = models.CharField(max_length=30)
+
     def __str__(self):
-        return f"{self.clasificacion}"
+        return self.nombre
+
+class TipoDisp(models.Model):
+    dispositivo = models.ForeignKey(Dispositivo, on_delete=models.CASCADE)
+    tipo = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.tipo
+
+class Marca(models.Model):
+    tipo = models.ForeignKey(TipoDisp, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.nombre
+
+class Modelo(models.Model):
+    marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.nombre 
+
+class Catalogo(models.Model):
+    dispositivo = models.ForeignKey(Dispositivo, on_delete=models.CASCADE)
+    tipo = models.ForeignKey(TipoDisp, on_delete=models.CASCADE)
+    marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
+    modelo = models.ForeignKey(Modelo, on_delete=models.CASCADE)
+    preciokg = models.FloatField()
+
+    def __str__(self):
+        return f"{self.dispositivo} - {self.tipo} - {self.marca} - {self.modelo}"
 
 
 class Cliente(models.Model):
@@ -30,10 +59,11 @@ class Cliente(models.Model):
     correo = models.CharField(max_length=30)
     telefono = models.CharField(max_length=20)
     fechanacimiento = models.DateTimeField(auto_now_add=True)
+    referencias = models.TextField()
 
     def __str__(self):
         return f"{self.nombre} {self.apellidos}"
-    
+
 
 class Venta(models.Model):
     EstadoP = [
@@ -41,25 +71,11 @@ class Venta(models.Model):
         ('Usado', 'Usado'),
         ('Descompuesto', 'Descompuesto')
     ]
-    Marcas = [
-    ('Samsung', 'Samsung'),
-    ('LG', 'LG'),
-    ('Lenovo', 'Lenovo'),
-    ('Apple', 'Apple'),
-    ('Sony', 'Sony'),
-    ('Microsoft', 'Microsoft'),
-    ('Google', 'Google'),
-    ('Huawei', 'Huawei'),
-    ('Dell', 'Dell'),
-    ('HP', 'HP'),
-    ('Acer', 'Acer'),
-    ('Asus', 'Asus'),
-    ]
 
-    tipo = models.ForeignKey(Desechos, on_delete=models.CASCADE)
-    marca = models.CharField(max_length=13, choices=Marcas)
-    Modelo = models.CharField(max_length=20)
-    AnioFab = models.DateField()
+    tipo = models.ForeignKey(Catalogo, on_delete=models.CASCADE) # Catalogo
+    marca = models.CharField(max_length=13)                      
+    Modelo = models.CharField(max_length=20) 
+    AnioFab = models.DateField() 
     fecha = models.DateTimeField(auto_now_add=True)
     EstadoP = models.CharField(max_length=13, choices=EstadoP)
     descripcion = models.TextField()

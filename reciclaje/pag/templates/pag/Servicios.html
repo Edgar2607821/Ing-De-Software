@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styleindex.css'%}">
+
+    {% block additional_styles %}
+    <style></style>
+    {% endblock additional_styles %}
+</head>
+<body>  
+    <!--rgb(117, 184, 46)  verdelimon
+    rgb(57, 59, 228) azul-->
+    <header class="header">
+        <div class="logo">
+            <img href="{% url "index" %}" src="{% static 'img/Greentec.png' %}"alt="">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="{% url "index" %}">¿Quiénes somos?</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="{% url "beneficios" %}">Beneficios</a></li>
+            </ul>            
+        </nav>
+        <a class="btn" href="{% url "login" %}"><button>Iniciar Sesión</button></a>
+        <a class="btn" href="#"><button>Registrarte</button></a>
+    </header>
+    <div class="parrafoser">
+        <h1>Nuestos Servicios</h1>
+        <br>
+        <p>
+            Nuestra empresa ofrece un servicio integral de gestión de desechos tecnológicos 
+            urbanos para el municipio de Ciudad Valles, que abarca desde la recepción segura 
+            de los residuos electrónicos por parte de los ciudadanos hasta la documentación del 
+            embarque hacia la empresa recicladora. 
+        </p>
+        <br>
+        <p> 
+            Implementamos un sistema que registra los datos 
+            de los usuarios que entregan desechos, generando automáticamente un listado cuando se 
+            alcanza un total de 2 toneladas, para luego proceder con la segregación y canalización 
+            eficiente de los residuos hacia la industria de transformación. Con esta iniciativa, buscamos 
+            contribuir significativamente a la sustentabilidad del planeta y promover prácticas 
+            responsables de reciclaje en la comunidad.
+        </p>
+
+    </div>
+    <div class="imagenser">
+        <img src="{% static 'img/Camion.png' %}" >
+
+    </div>
+    
+</body>
+</html>
